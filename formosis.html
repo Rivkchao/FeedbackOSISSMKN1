@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback OSIS — SMKN 1 Tarumajaya</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet" />
+    <script src="tailwindcssfo.js"></script>
+    <link rel="stylesheet" href="formosis.css">
+
+</head>
+
+<body class="py-10 px-4">
+
+    <!-- Header -->
+    <div class="max-w-xl mx-auto mb-8 text-center animate-fade-up"
+        style="animation-delay:0s; opacity:0; animation-fill-mode:forwards;">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-100 mb-4 shadow-sm">
+            <span style="font-size:2rem;">🏫</span>
+        </div>
+        <h1 class="font-serif text-3xl text-ink-900 leading-tight">
+            Feedback <em>OSIS</em>
+        </h1>
+        <p class="text-ink-500 text-sm mt-1.5 font-medium">SMKN 1 Tarumajaya — Tahun Ajaran 2024/2025</p>
+
+        <!-- Progress -->
+        <div class="mt-5">
+            <div class="flex justify-between text-xs text-ink-400 font-medium mb-1.5 px-0.5">
+                <span id="step-label">Langkah 1 dari 3</span>
+                <span id="step-pct">33%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 33%"></div>
+            </div>
+            <div class="flex gap-1.5 mt-2 justify-center">
+                <div class="step-dot active" id="dot-1"></div>
+                <div class="step-dot pending" id="dot-2"></div>
+                <div class="step-dot pending" id="dot-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-step form -->
+    <form id="feedbackForm" novalidate>
+        <div class="max-w-xl mx-auto animate-stagger">
+
+            <!-- STEP 1: Identitas -->
+            <div id="step-1" class="section-card p-6 mb-4">
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xs font-bold">1</span>
+                    </div>
+                    <h2 class="font-semibold text-ink-800 text-base">Identitas Kamu</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Nama -->
+                    <div class="field-group" id="fg-nama">
+                        <input type="text" id="nama" name="nama" placeholder=" " autocomplete="off" />
+                        <label for="nama">Nama Lengkap <span class="text-red-400">*</span></label>
+                        <p class="error-hint">Nama tidak boleh kosong.</p>
+                    </div>
+
+                    <!-- Kelas -->
+                    <div class="field-group has-value" id="fg-kelas">
+                        <select id="kelas" name="kelas">
+                            <option value="">Pilih kelas...</option>
+                            <option value="X">Kelas X</option>
+                            <option value="XI">Kelas XI</option>
+                            <option value="XII">Kelas XII</option>
+                        </select>
+                        <label for="kelas">Kelas <span class="text-red-400">*</span></label>
+                        <p class="error-hint">Pilih kelas terlebih dahulu.</p>
+                    </div>
+
+                    <!-- Jurusan -->
+                    <div class="field-group has-value" id="fg-jurusan">
+                        <select id="jurusan" name="jurusan">
+                            <option value="">Pilih jurusan...</option>
+                            <option value="TKJ">TKJ — Teknik Komputer & Jaringan</option>
+                            <option value="RPL">RPL — Rekayasa Perangkat Lunak</option>
+                            <option value="AKL">AKL — Akuntansi & Keuangan</option>
+                            <option value="TBSM">TBSM — Teknik Bisnis Sepeda Motor</option>
+                            <option value="TITL">TITL — Teknik Instalasi Tenaga Listrik</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                        <label for="jurusan">Jurusan <span class="text-red-400">*</span></label>
+                        <p class="error-hint">Pilih jurusan terlebih dahulu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: Penilaian -->
+            <div id="step-2" class="section-card p-6 mb-4">
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xs font-bold">2</span>
+                    </div>
+                    <h2 class="font-semibold text-ink-800 text-base">Penilaian Kegiatan</h2>
+                </div>
+
+                <div class="space-y-5">
+                    <!-- Kegiatan -->
+                    <div class="field-group has-value" id="fg-kegiatan">
+                        <select id="kegiatan" name="kegiatan">
+                            <option value="">Pilih kegiatan...</option>
+                            <option>MOS / MPLS</option>
+                            <option>Pentas Seni</option>
+                            <option>Class Meeting</option>
+                            <option>Lomba Antar Kelas</option>
+                            <option>Kegiatan Sosial</option>
+                            <option>Upacara / Apel</option>
+                            <option>Peringatan Hari Besar</option>
+                            <option>Lainnya</option>
+                        </select>
+                        <label for="kegiatan">Kegiatan yang Dinilai <span class="text-red-400">*</span></label>
+                        <p class="error-hint">Pilih kegiatan yang ingin dinilai.</p>
+                    </div>
+
+                    <!-- Emoji Rating -->
+                    <div id="fg-rating">
+                        <p class="text-xs font-semibold text-ink-400 uppercase tracking-wider mb-3">
+                            Tingkat Kepuasan <span class="text-red-400">*</span>
+                        </p>
+                        <div class="grid grid-cols-5 gap-2" id="emoji-grid">
+                            <label class="emoji-option">
+                                <input type="radio" name="rating" value="1" />
+                                <div class="emoji-card">
+                                    <span class="emoji-icon">😡</span>
+                                    <span class="emoji-label">Sangat<br>Kecewa</span>
+                                </div>
+                            </label>
+                            <label class="emoji-option">
+                                <input type="radio" name="rating" value="2" />
+                                <div class="emoji-card">
+                                    <span class="emoji-icon">😟</span>
+                                    <span class="emoji-label">Kurang<br>Puas</span>
+                                </div>
+                            </label>
+                            <label class="emoji-option">
+                                <input type="radio" name="rating" value="3" />
+                                <div class="emoji-card">
+                                    <span class="emoji-icon">😐</span>
+                                    <span class="emoji-label">Biasa<br>Saja</span>
+                                </div>
+                            </label>
+                            <label class="emoji-option">
+                                <input type="radio" name="rating" value="4" />
+                                <div class="emoji-card">
+                                    <span class="emoji-icon">😊</span>
+                                    <span class="emoji-label">Puas</span>
+                                </div>
+                            </label>
+                            <label class="emoji-option">
+                                <input type="radio" name="rating" value="5" />
+                                <div class="emoji-card">
+                                    <span class="emoji-icon">🤩</span>
+                                    <span class="emoji-label">Sangat<br>Puas</span>
+                                </div>
+                            </label>
+                        </div>
+                        <p class="error-hint" id="rating-error"
+                            style="display:none; margin-top:6px; font-size:0.75rem; color:#f05252; padding-left:4px;">
+                            Pilih tingkat kepuasanmu.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Masukan -->
+            <div id="step-3" class="section-card p-6 mb-5">
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xs font-bold">3</span>
+                    </div>
+                    <h2 class="font-semibold text-ink-800 text-base">Masukan & Saran</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Hal positif -->
+                    <div>
+                        <div class="field-group">
+                            <textarea id="positif" name="positif" placeholder=" " maxlength="500"></textarea>
+                            <label for="positif">Apa yang sudah berjalan baik?</label>
+                        </div>
+                        <div class="char-counter" id="cc-positif">0 / 500</div>
+                    </div>
+
+                    <!-- Saran -->
+                    <div>
+                        <div class="field-group" id="fg-saran">
+                            <textarea id="saran" name="saran" placeholder=" " maxlength="500"></textarea>
+                            <label for="saran">Saran untuk OSIS ke depannya <span class="text-red-400">*</span></label>
+                            <p class="error-hint">Tuliskan minimal satu saran.</p>
+                        </div>
+                        <div class="char-counter" id="cc-saran">0 / 500</div>
+                    </div>
+
+                    <!-- Anonim toggle -->
+                    <div class="flex items-center gap-3 pt-1">
+                        <button type="button" id="anon-toggle"
+                            class="relative w-10 h-5 rounded-full bg-ink-200 transition-colors duration-200 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-1"
+                            role="switch" aria-checked="false">
+                            <span id="anon-thumb"
+                                class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200"></span>
+                        </button>
+                        <div>
+                            <p class="text-sm font-medium text-ink-700">Kirim secara anonim</p>
+                            <p class="text-xs text-ink-400">Namamu tidak akan ditampilkan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="space-y-3">
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    Kirim Feedback →
+                </button>
+                <p class="text-center text-xs text-ink-400 font-medium">
+                    🔒 Data kamu terjaga kerahasiaannya
+                </p>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="max-w-xl mx-auto mt-8 text-center">
+        <p class="text-xs text-ink-400">
+            © 2025 OSIS SMKN 1 Tarumajaya · Kabupaten Bekasi, Jawa Barat
+        </p>
+    </div>
+
+<script src="formosis.js"></script>
+</body>
+
+</html>
