@@ -1,252 +1,1131 @@
-<!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aspirasi SISWA — OSIS SMKN 1 Tarumajaya</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIS SMKN 1 Tarumajaya Portal</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="sweetalert2"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
-        rel="stylesheet" />
-    <script src="tailwindcssfo.js"></script>
-    <link rel="stylesheet" href="formosis.css">
-
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:wght@700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
 </head>
 
-<body class="py-10 px-4">
+<body class="h-full">
+    <div id="app" class="w-full h-full overflow-auto scroll-smooth" style="background-color: #f8fafc;">
 
-    <!-- Header -->
-    <div class="max-w-xl mx-auto mb-8 text-center animate-fade-up"
-        style="animation-delay:0s; opacity:0; animation-fill-mode:forwards;">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-100 mb-4 shadow-sm">
-            <span style="font-size:2rem;">🏫</span>
-        </div>
-        <h1 class="font-serif text-3xl text-ink-900 leading-tight">
-            Aspirasi <em>SISWA</em>
-        </h1>
-        <p class="text-ink-500 text-sm mt-1.5 font-medium">OSIS SMKN 1 Tarumajaya <span id="year-header"></span></p>
+        <!-- Navbar -->
+        <nav id="navbar"
+            class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-900/95 backdrop-blur-xl border-b border-white/5">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-2">
+                        <img class="w-15 h-10 rounded-lg flex items-center justify-center" src="logosmkn1trmj.png">
+                        <span id="nav-brand" class="font-bold text-white text-lg tracking-tight">OSIS SMKN 1
+                            Tarumajaya</span>
 
-        <!-- Progress -->
-        <div class="mt-5">
-            <div class="flex justify-between text-xs text-ink-400 font-medium mb-1.5 px-0.5">
-                <span id="step-label">Langkah 1 dari 3</span>
-                <span id="step-pct">0%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-            </div>
-            <div class="flex gap-1.5 mt-2 justify-center">
-                <div class="step-dot active" id="dot-1"></div>
-                <div class="step-dot pending" id="dot-2"></div>
-                <div class="step-dot pending" id="dot-3"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Multi-step form -->
-    <form id="feedbackForm" novalidate>
-        <div class="max-w-xl mx-auto animate-stagger">
-
-            <!-- STEP 1: Identitas -->
-            <div id="step-1" class="section-card p-6 mb-4">
-                <div class="flex items-center gap-2 mb-5">
-                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
-                        <span class="text-white text-xs font-bold">1</span>
-                    </div>
-                    <h2 class="font-semibold text-ink-800 text-base">Identitas Kamu</h2>
-                </div>
-
-                <div class="space-y-4">
-                    <!-- Nama -->
-                    <div class="field-group" id="fg-nama">
-                        <input type="text" id="nama" name="nama" placeholder=" " autocomplete="off" />
-                        <label for="nama">Nama Lengkap <span class="text-red-400">*</span></label>
-                        <p class="error-hint">Nama tidak boleh kosong.</p>
-                    </div>
-
-                    <!-- Kelas -->
-                    <div class="field-group has-value" id="fg-kelas">
-                        <select id="kelas" name="kelas">
-                            <option value="">Pilih kelas...</option>
-                            <option value="X">Kelas X</option>
-                            <option value="XI">Kelas XI</option>
-                            <option value="XII">Kelas XII</option>
-                        </select>
-                        <label for="kelas">Kelas <span class="text-red-400">*</span></label>
-                        <p class="error-hint">Pilih kelas terlebih dahulu.</p>
-                    </div>
-
-                    <!-- Jurusan -->
-                    <div class="field-group has-value" id="fg-jurusan">
-                        <select id="jurusan" name="jurusan">
-                            <option value="">Pilih jurusan...</option>
-                            <option value="TKJ">TKJ — Teknik Komputer & Jaringan</option>
-                            <option value="RPL">RPL — Rekayasa Perangkat Lunak</option>
-                            <option value="AKL">AKL — Akuntansi & Keuangan</option>
-                            <option value="TBSM">TBSM — Teknik Bisnis Sepeda Motor</option>
-                            <option value="TITL">TITL — Teknik Instalasi Tenaga Listrik</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
-                        <label for="jurusan">Jurusan <span class="text-red-400">*</span></label>
-                        <p class="error-hint">Pilih jurusan terlebih dahulu.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 2: Penilaian -->
-            <div id="step-2" class="section-card p-6 mb-4">
-                <div class="flex items-center gap-2 mb-5">
-                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
-                        <span class="text-white text-xs font-bold">2</span>
-                    </div>
-                    <h2 class="font-semibold text-ink-800 text-base">Penilaian Kegiatan</h2>
-                </div>
-
-                <div class="space-y-5">
-                    <!-- Kegiatan -->
-                    <div class="field-group has-value" id="fg-kegiatan">
-                        <select id="kegiatan" name="kegiatan">
-                            <option value="">Pilih kegiatan...</option>
-                            <option>MOS / MPLS</option>
-                            <option>Pentas Seni</option>
-                            <option>Class Meeting</option>
-                            <option>Lomba Antar Kelas</option>
-                            <option>Kegiatan Sosial</option>
-                            <option>Upacara / Apel</option>
-                            <option>Peringatan Hari Besar</option>
-                            <option>Lainnya</option>
-                        </select>
-                        <label for="kegiatan">Kegiatan yang Dinilai <span class="text-red-400">*</span></label>
-                        <p class="error-hint">Pilih kegiatan yang ingin dinilai.</p>
-                    </div>
-
-                    <!-- Emoji Rating -->
-                    <div id="fg-rating">
-                        <p class="text-xs font-semibold text-ink-400 uppercase tracking-wider mb-3">
-                            Tingkat Kepuasan <span class="text-red-400">*</span>
-                        </p>
-                        <div class="grid grid-cols-5 gap-2" id="emoji-grid">
-                            <label class="emoji-option">
-                                <input type="radio" name="rating" value="1" />
-                                <div class="emoji-card">
-                                    <span class="emoji-icon">😡</span>
-                                    <span class="emoji-label">Sangat<br>Kecewa</span>
-                                </div>
-                            </label>
-                            <label class="emoji-option">
-                                <input type="radio" name="rating" value="2" />
-                                <div class="emoji-card">
-                                    <span class="emoji-icon">😟</span>
-                                    <span class="emoji-label">Kurang<br>Puas</span>
-                                </div>
-                            </label>
-                            <label class="emoji-option">
-                                <input type="radio" name="rating" value="3" />
-                                <div class="emoji-card">
-                                    <span class="emoji-icon">😐</span>
-                                    <span class="emoji-label">Biasa<br>Saja</span>
-                                </div>
-                            </label>
-                            <label class="emoji-option">
-                                <input type="radio" name="rating" value="4" />
-                                <div class="emoji-card">
-                                    <span class="emoji-icon">😊</span>
-                                    <span class="emoji-label">Puas</span>
-                                </div>
-                            </label>
-                            <label class="emoji-option">
-                                <input type="radio" name="rating" value="5" />
-                                <div class="emoji-card">
-                                    <span class="emoji-icon">🤩</span>
-                                    <span class="emoji-label">Sangat<br>Puas</span>
-                                </div>
-                            </label>
-                        </div>
-                        <p class="error-hint" id="rating-error"
-                            style="display:none; margin-top:6px; font-size:0.75rem; color:#f05252; padding-left:4px;">
-                            Pilih tingkat kepuasanmu.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 3: Masukan -->
-            <div id="step-3" class="section-card p-6 mb-5">
-                <div class="flex items-center gap-2 mb-5">
-                    <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0">
-                        <span class="text-white text-xs font-bold">3</span>
-                    </div>
-                    <h2 class="font-semibold text-ink-800 text-base">Masukan & Saran</h2>
-                </div>
-
-                <div class="space-y-4">
-                    <!-- Hal positif -->
-                    <div>
-                        <div class="field-group">
-                            <textarea id="positif" name="positif" placeholder=" " maxlength="500"></textarea>
-                            <label for="positif">Apa yang sudah berjalan baik?</label>
-                        </div>
-                        <div class="char-counter" id="cc-positif">0 / 500</div>
-                    </div>
-
-                    <!-- Saran -->
-                    <div>
-                        <div class="field-group" id="fg-saran">
-                            <textarea id="saran" name="saran" placeholder=" " maxlength="500"></textarea>
-                            <label for="saran">Saran untuk OSIS ke depannya <span class="text-red-400">*</span></label>
-                            <p class="error-hint">Tuliskan minimal satu saran.</p>
-                        </div>
-                        <div class="char-counter" id="cc-saran">0 / 500</div>
-                    </div>
-
-                    <!-- Anonim toggle -->
-                    <div class="flex items-center gap-3 pt-1">
-                        <button type="button" id="anon-toggle"
-                            class="relative w-10 h-5 rounded-full bg-ink-200 transition-colors duration-200 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-1"
-                            role="switch" aria-checked="false">
-                            <span id="anon-thumb"
-                                class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200"></span>
+                        <button id="notification-bell"
+                            class="ml-2 p-1.5 rounded-full hover:bg-white/10 transition-all duration-200 group"
+                            onclick="toggleNotification()" title="Notifikasi">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="text-sky-400 group-hover:scale-110 transition-transform">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                            </svg>
                         </button>
-                        <div>
-                            <p class="text-sm font-medium text-ink-700">Kirim secara anonim</p>
-                            <p class="text-xs text-ink-400">Namamu tidak akan ditampilkan</p>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-8">
+                        <a href="#beranda"
+                            class="group flex items-center gap-2 text-slate-300 hover:text-sky-400 text-sm font-medium transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="group-hover:animate-pulse">
+                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                            <span>Beranda</span>
+                        </a>
+
+                        <a href="#struktur"
+                            class="group flex items-center gap-2 text-slate-300 hover:text-sky-400 text-sm font-medium transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                            <span>Struktur</span>
+                        </a>
+
+                        <a href="#berita"
+                            class="group flex items-center gap-2 text-slate-300 hover:text-sky-400 text-sm font-medium transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+                                <path d="M18 14h-8" />
+                                <path d="M15 18h-5" />
+                                <path d="M10 6h8v4h-8V6Z" />
+                            </svg>
+                            <span>Berita</span>
+                        </a>
+
+                        <a href="#pendaftaran"
+                            class="group flex items-center gap-2 text-slate-300 hover:text-sky-400 text-sm font-medium transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <line x1="19" y1="8" x2="19" y2="14" />
+                                <line x1="22" y1="11" x2="16" y2="11" />
+                            </svg>
+                            <span>Pendaftaran</span>
+                        </a>
+
+                        <a href="#feedback"
+                            class="group flex items-center gap-2 text-slate-300 hover:text-sky-400 text-sm font-medium transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                            </svg>
+                            <span>Feedback</span>
+                        </a>
+
+                        <a href="#kontak"
+                            class="group flex items-center gap-2 text-slate-300 hover:text-sky-400 text-sm font-medium transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                            <span>Kontak</span>
+                        </a>
+                    </div>
+
+                    <button id="mobile-toggle" class="md:hidden p-2 text-white hover:bg-white/10 rounded-lg"
+                        onclick="toggleMobileMenu()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="mobile-menu"
+                    class="hidden md:hidden bg-slate-900/95 backdrop-blur-lg absolute top-[64px] left-0 w-full p-6 space-y-2 shadow-2xl border-b border-white/10 z-[60] animate-fade-down">
+
+                    <a href="#beranda" onclick="closeMobileMenu()"
+                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-semibold tracking-wide">Beranda</span>
+                    </a>
+
+                    <a href="#struktur" onclick="closeMobileMenu()"
+                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-semibold tracking-wide">Struktur Organisasi</span>
+                    </a>
+
+                    <a href="#berita" onclick="closeMobileMenu()"
+                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+                                <path d="M18 14h-8" />
+                                <path d="M15 18h-5" />
+                                <path d="M10 6h8v4h-8V6Z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-semibold tracking-wide">Berita & Kegiatan</span>
+                    </a>
+
+                    <a href="#pendaftaran" onclick="closeMobileMenu()"
+                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <line x1="19" y1="8" x2="19" y2="14" />
+                                <line x1="22" y1="11" x2="16" y2="11" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-semibold tracking-wide">Pendaftaran</span>
+                    </a>
+
+                    <a href="#feedback" onclick="closeMobileMenu()"
+                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-semibold tracking-wide">Suaramu / Feedback</span>
+                    </a>
+
+                    <a href="#kontak" onclick="closeMobileMenu()"
+                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-semibold tracking-wide">Kontak Kami</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section id="beranda" class="hero-bg grid-pattern relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-white/50 pointer-events-none"> </div>
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+                <div class="fade-up stagger-1">
+                    <span
+                        class="inline-block px-4 py-1.5 rounded-full text-xs font-bold text-sky-300 border border-sky-500/30 mb-6 bg-sky-500/10 tracking-wider uppercase">
+                        Periode 2026
+                    </span>
+                </div>
+
+                <h1 id="hero-title"
+                    class="section-title text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight fade-up stagger-2 [-webkit-text-stroke:2px_black]">
+                    OSIS SMKN 1 <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-400">Tarumajaya</span>
+                </h1>
+
+                <p id="hero-subtitle"
+                    class="text-base sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed fade-up stagger-3">
+                    Membangun generasi pemimpin masa depan yang inovatif, berintegritas, dan siap berkontribusi untuk
+                    kemajuan sekolah.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4 fade-up stagger-4">
+                    <a href="#pendaftaran"
+                        class="px-8 py-4 rounded-xl font-bold text-white text-sm bg-gradient-to-r from-sky-500 to-cyan-500 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all hover:-translate-y-1">
+                        Daftar Sekarang
+                    </a>
+                    <a href="#struktur"
+                        class="px-8 py-4 rounded-xl font-bold text-sky-500 text-sm border border-sky-600 hover:border-cyan-500 hover:text-cyan-400 transition-all backdrop-blur-sm bg-white/5">
+                        Lihat Struktur
+                    </a>
+                </div>
+
+                <div
+                    class="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-16 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm fade-up stagger-5">
+                    <div class="text-center">
+                        <div class="text-2xl md:text-3xl font-black text-white [-webkit-text-stroke:1px_black]">8</div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 font-bold mt-1">
+                            Divisi</div>
+                    </div>
+                    <div class="text-center border-x border-white/10">
+                        <div class="text-2xl md:text-3xl font-black text-white [-webkit-text-stroke:1px_black]">50+
+                        </div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 font-bold mt-1">
+                            Anggota</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl md:text-3xl font-black text-white [-webkit-text-stroke:1px_black]">20+
+                        </div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 font-bold mt-1">
+                            Program</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Struktur Organisasi -->
+        <section id="struktur" class="py-16 sm:py-24 bg-slate-50/50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16">
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-sky-500">Organisasi</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Struktur Pengurus Inti</h2>
+                    <div class="w-12 h-1 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-slate-500 mt-4 max-w-lg mx-auto text-sm sm:text-base">
+                        Sinergi pemimpin muda yang menggerakkan inovasi di lingkungan SMKN 1 Tarumajaya.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-10">
+                    <div
+                        class="group card-hover bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm hover:border-sky-500/50 transition-all">
+                        <div
+                            class="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center text-white bg-gradient-to-br from-sky-500 to-sky-700 shadow-lg shadow-sky-500/30 group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900">Ahmad Rizky</h3>
+                        <p class="text-sm font-bold text-sky-500 uppercase tracking-wide mt-1">Ketua OSIS</p>
+                        <p class="text-xs text-slate-400 mt-2 bg-slate-100 inline-block px-3 py-1 rounded-full">XII RPL
+                            1</p>
+                    </div>
+
+                    <div
+                        class="group card-hover bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-sm hover:border-cyan-500/50 transition-all">
+                        <div
+                            class="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center text-white bg-gradient-to-br from-cyan-500 to-cyan-700 shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900">Siti Nurhaliza</h3>
+                        <p class="text-sm font-bold text-cyan-500 uppercase tracking-wide mt-1">Wakil Ketua</p>
+                        <p class="text-xs text-slate-400 mt-2 bg-slate-100 inline-block px-3 py-1 rounded-full">XII TKJ
+                            2</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 max-w-2xl mx-auto mb-16">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 text-center shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 mx-auto mb-3 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" x2="8" y1="13" y2="13"></line>
+                                <line x1="16" x2="8" y1="17" y2="17"></line>
+                                <line x1="10" x2="8" y1="9" y2="9"></line>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">Budi Santoso</h4>
+                        <p class="text-[10px] font-bold text-sky-500 uppercase">Sekretaris</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 text-center shadow-sm">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 mx-auto mb-3 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                                <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">Dewi Lestari</h4>
+                        <p class="text-[10px] font-bold text-cyan-500 uppercase">Bendahara</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/50 p-8 rounded-3xl border border-slate-200">
+                    <h3 class="text-center font-black text-slate-900 mb-8 uppercase tracking-widest text-sm">Bidang
+                        Divisi</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m3 11 18-5v12L3 14v-3z"></path>
+                                    <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path>
+                                </svg>
+                            </div>
+                            <p class="font-bold text-[11px] text-slate-700">HUMAS</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    data-lucide="palette" style="width:20px;height:20px;" class="lucide lucide-palette">
+                                    <circle cx="13.5" cy="6.5" r=".5"></circle>
+                                    <circle cx="17.5" cy="10.5" r=".5"></circle>
+                                    <circle cx="8.5" cy="7.5" r=".5"></circle>
+                                    <circle cx="6.5" cy="12.5" r=".5"></circle>
+                                    <path
+                                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Seni &amp; Budaya</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="trophy"
+                                    style="width:20px;height:20px;" class="lucide lucide-trophy">
+                                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                                    <path d="M4 22h16"></path>
+                                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Olahraga</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    data-lucide="book-open" style="width:20px;height:20px;"
+                                    class="lucide lucide-book-open">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Pendidikan</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart"
+                                    style="width:20px;height:20px;" class="lucide lucide-heart">
+                                    <path
+                                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Sosial</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="leaf"
+                                    style="width:20px;height:20px;" class="lucide lucide-leaf">
+                                    <path
+                                        d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z">
+                                    </path>
+                                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Lingkungan</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    data-lucide="monitor" style="width:20px;height:20px;" class="lucide lucide-monitor">
+                                    <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                                    <line x1="8" x2="16" y1="21" y2="21"></line>
+                                    <line x1="12" x2="12" y1="17" y2="21"></line>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Teknologi</p>
+                        </div>
+
+                        <div class="card-hover rounded-xl p-4 text-center border"
+                            style="background: white; border-color: #e2e8f0;">
+                            <div class="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                                style="background: #f0f9ff; color: #0ea5e9;"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flag"
+                                    style="width:20px;height:20px;" class="lucide lucide-flag">
+                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                                    <line x1="4" x2="4" y1="22" y2="15"></line>
+                                </svg>
+                            </div>
+                            <p class="font-semibold text-xs" style="color: #0f172a;">Kerohanian</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Submit -->
-            <div class="space-y-3">
-                <button type="submit" class="btn-submit" id="submitBtn">
-                    Kirim Feedback →
-                </button>
-                <p class="text-center text-xs text-ink-400 font-medium">
-                    🔒 Data kamu terjaga kerahasiaannya
-                </p>
+        <!-- Berita Upcoming -->
+        <section id="berita" class="py-20 bg-[#0f172a] relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-sky-500/10 blur-[100px] rounded-full"></div>
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <span class="text-xs font-bold tracking-[0.2em] uppercase text-sky-400">Agenda</span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white mt-2">Berita & Kegiatan</h2>
+                    </div>
+                    <a href="#"
+                        class="text-sky-400 text-sm font-semibold hover:text-sky-300 transition-colors flex items-center gap-2">
+                        Lihat Semua Agenda
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div
+                        class="group card-hover rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/50 backdrop-blur-sm hover:border-sky-500/30 transition-all duration-300">
+                        <div
+                            class="h-44 relative flex items-center justify-center bg-gradient-to-br from-sky-600 to-cyan-700 overflow-hidden">
+                            <div class="absolute inset-0 opacity-20 grid-pattern"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-white relative z-10 group-hover:scale-110 transition-transform duration-500">
+                                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                                <line x1="16" x2="16" y1="2" y2="6"></line>
+                                <line x1="8" x2="8" y1="2" y2="6"></line>
+                                <line x1="3" x2="21" y1="10" y2="10"></line>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="relative flex h-2 w-2">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                                </span>
+                                <span
+                                    class="text-[10px] font-bold uppercase tracking-widest text-sky-400">Upcoming</span>
+                            </div>
+                            <h3 class="font-bold text-lg text-white group-hover:text-sky-400 transition-colors">
+                                Pelantikan OSIS 2026</h3>
+                            <p class="text-slate-400 text-sm mt-2 leading-relaxed">Upacara resmi pelantikan jajaran
+                                pengurus baru periode 2026/2027.</p>
+                            <div
+                                class="flex items-center gap-2 mt-5 pt-5 border-t border-slate-800 text-xs text-slate-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>15 Januari 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group card-hover rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/50 backdrop-blur-sm hover:border-yellow-500/30 transition-all duration-300">
+                        <div
+                            class="h-44 relative flex items-center justify-center bg-gradient-to-br from-yellow-600 to-orange-700 overflow-hidden">
+                            <div class="absolute inset-0 opacity-20 grid-pattern"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-white relative z-10 group-hover:scale-110 transition-transform duration-500">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                                <path d="M4 22h16"></path>
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span
+                                    class="text-[10px] font-bold uppercase tracking-widest text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded">Event</span>
+                            </div>
+                            <h3 class="font-bold text-lg text-white group-hover:text-yellow-500 transition-colors">Lomba
+                                Antar Kelas</h3>
+                            <p class="text-slate-400 text-sm mt-2 leading-relaxed">Kompetisi kreativitas dan olahraga
+                                untuk mempererat solidaritas siswa.</p>
+                            <div
+                                class="flex items-center gap-2 mt-5 pt-5 border-t border-slate-800 text-xs text-slate-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>20-22 Februari 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group card-hover rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/50 backdrop-blur-sm hover:border-emerald-500/30 transition-all duration-300">
+                        <div
+                            class="h-44 relative flex items-center justify-center bg-gradient-to-br from-emerald-600 to-teal-700 overflow-hidden">
+                            <div class="absolute inset-0 opacity-20 grid-pattern"></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="text-white relative z-10 group-hover:scale-110 transition-transform duration-500">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span
+                                    class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded">Open</span>
+                            </div>
+                            <h3 class="font-bold text-lg text-white group-hover:text-emerald-400 transition-colors">
+                                Rekrutmen Anggota</h3>
+                            <p class="text-slate-400 text-sm mt-2 leading-relaxed">Kesempatan bergabung menjadi bagian
+                                dari agen perubahan sekolah.</p>
+                            <div
+                                class="flex items-center gap-2 mt-5 pt-5 border-t border-slate-800 text-xs text-slate-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>1-10 Maret 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Pendaftaran -->
+        <section id="pendaftaran" class="py-20 bg-slate-50">
+            <div class="max-w-2xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-sky-600">Formulir Digital</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Gabung Pengurus OSIS</h2>
+                    <div class="w-16 h-1 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-slate-500 mt-4 text-sm max-w-md mx-auto">
+                        Langkah awal untuk menjadi bagian dari perubahan. Isi data dirimu dengan lengkap dan benar.
+                    </p>
+                </div>
+
+                <form id="register-form"
+                    class="bg-white rounded-3xl p-8 sm:p-10 shadow-xl shadow-slate-200/60 border border-slate-100 space-y-6">
+
+                    <div class="space-y-1.5">
+                        <label for="reg-name" class="block text-sm font-bold text-slate-700 ml-1">Nama Lengkap</label>
+                        <input id="reg-name" type="text" required
+                            class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200 placeholder:text-slate-400"
+                            placeholder="Masukkan nama lengkap sesuai absen">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-1.5">
+                            <label for="reg-kelas" class="block text-sm font-bold text-slate-700 ml-1">Kelas</label>
+                            <input id="reg-kelas" type="text" required
+                                class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
+                                placeholder="Contoh: X RPL 1">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="reg-email" class="block text-sm font-bold text-slate-700 ml-1">Email
+                                Aktif</label>
+                            <input id="reg-email" type="email" required
+                                class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
+                                placeholder="nama@sekolah.sch.id">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="reg-phone" class="block text-sm font-bold text-slate-700 ml-1">Nomor
+                            WhatsApp</label>
+                        <div class="relative">
+                            <span
+                                class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-sm border-r border-slate-200 pr-3">+62</span>
+                            <input id="reg-phone" type="tel" required
+                                class="w-full pl-16 pr-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
+                                placeholder="8123456789">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="reg-divisi" class="block text-sm font-bold text-slate-700 ml-1">Pilihan
+                            Divisi</label>
+                        <select id="reg-divisi" required
+                            class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200 appearance-none cursor-pointer">
+                            <option value="" disabled selected>Pilih divisi yang sesuai minatmu...</option>
+                            <optgroup label="Inti">
+                                <option>Ketua / Wakil Ketua</option>
+                                <option>Sekretaris</option>
+                                <option>Bendahara</option>
+                            </optgroup>
+                            <optgroup label="Sekbid / Divisi">
+                                <option>Humas</option>
+                                <option>Seni & Budaya</option>
+                                <option>Olahraga</option>
+                                <option>Teknologi (ICT)</option>
+                                <option>Kerohanian</option>
+                                <option>Sosial & Lingkungan</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="reg-motivasi" class="block text-sm font-bold text-slate-700 ml-1">Apa Motivasi
+                            Kamu?</label>
+                        <textarea id="reg-motivasi" rows="4" required
+                            class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200 resize-none"
+                            placeholder="Ceritakan alasan dan apa yang ingin kamu capai di OSIS..."></textarea>
+                    </div>
+
+                    <button type="submit" id="reg-submit"
+                        class="w-full bg-gradient-to-r from-sky-500 to-cyan-500 hover:bg-sky-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-200 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2">
+                        <span>Kirim Formulir Pendaftaran</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+
+                    <div id="reg-message" class="hidden text-center text-sm font-bold p-3 rounded-2xl animate-pulse">
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Feedback -->
+        <section id="feedback" class="py-20 bg-[#f8fafc]">
+            <div class="max-w-2xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-100 mb-4">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                        </span>
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-sky-600">Suaramu
+                            Penting</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Kotak Aspirasi</h2>
+                    <p class="text-slate-500 mt-3 text-sm">Bantu OSIS berkembang lebih baik melalui saran dan kritikmu.
+                    </p>
+                </div>
+
+                <form id="feedback-form"
+                    class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
+
+                    <div class="space-y-1.5">
+                        <label for="fb-name" class="block text-sm font-bold text-slate-700 ml-1">Nama <span
+                                class="text-slate-400 font-normal">(Opsional)</span></label>
+                        <input id="fb-name" type="text"
+                            class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all placeholder:text-slate-400"
+                            placeholder="Boleh dikosongkan jika ingin anonim">
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-dashed border-slate-200">
+                        <label class="block text-sm font-bold text-slate-700 mb-3 text-center">Kepuasan Layanan
+                            OSIS</label>
+                        <div id="star-rating" class="flex justify-center gap-3">
+                            <button type="button"
+                                class="star-btn text-3xl text-slate-300 hover:scale-125 transition-transform duration-200 focus:outline-none"
+                                data-star="1">★</button>
+                            <button type="button"
+                                class="star-btn text-3xl text-slate-300 hover:scale-125 transition-transform duration-200 focus:outline-none"
+                                data-star="2">★</button>
+                            <button type="button"
+                                class="star-btn text-3xl text-slate-300 hover:scale-125 transition-transform duration-200 focus:outline-none"
+                                data-star="3">★</button>
+                            <button type="button"
+                                class="star-btn text-3xl text-slate-300 hover:scale-125 transition-transform duration-200 focus:outline-none"
+                                data-star="4">★</button>
+                            <button type="button"
+                                class="star-btn text-3xl text-slate-300 hover:scale-125 transition-transform duration-200 focus:outline-none"
+                                data-star="5">★</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="fb-category" class="block text-sm font-bold text-slate-700 ml-1">Kategori
+                            Masukan</label>
+                        <div class="relative">
+                            <select id="fb-category" required
+                                class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all appearance-none cursor-pointer">
+                                <option value="" disabled selected>Pilih jenis feedback...</option>
+                                <option>💡 Saran & Ide Baru</option>
+                                <option>⚠️ Keluhan / Laporan</option>
+                                <option>❓ Pertanyaan</option>
+                                <option>🙌 Apresiasi</option>
+                                <option>📢 Aspirasi Umum</option>
+                                <option>••• Lainnya</option>
+                            </select>
+                            <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="fb-message" class="block text-sm font-bold text-slate-700 ml-1">Isi Pesan</label>
+                        <textarea id="fb-message" rows="4" required
+                            class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all resize-none"
+                            placeholder="Sampaikan apa yang ada di pikiranmu secara sopan..."></textarea>
+                    </div>
+
+                    <button type="submit" id="fb-submit"
+                        class="w-full bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-200 transition-all transform hover:-translate-y-1 active:scale-95">
+                        Kirim Aspirasi Saya
+                    </button>
+
+                    <div id="fb-message-status"
+                        class="hidden text-center text-sm font-bold p-3 rounded-2xl animate-bounce"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Kontak -->
+        <section id="kontak" class="py-20 bg-[#0f172a] relative">
+            <div
+                class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-sky-500/5 blur-[120px] rounded-full pointer-events-none">
             </div>
 
-        </div>
-    </form>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="text-xs font-bold tracking-[0.3em] uppercase text-sky-400">Hubungi Kami</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mt-3">Informasi Kontak</h2>
+                    <div class="w-12 h-1 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+                </div>
 
-    <!-- Footer -->
-    <div class="max-w-xl mx-auto mt-8 text-center">
-        <p class="text-xs text-ink-400">
-            © <span id="year-footer"></span> OSIS SMKN 1 Tarumajaya · Kabupaten Bekasi, Jawa Barat
-        </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="group p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-sky-500/50 transition-all duration-300 text-center">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 group-hover:bg-sky-500 group-hover:text-white text-sky-400 transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-white font-bold mb-1">Email</h4>
+                        <p class="text-slate-400 text-sm break-all">osis@smkn1tarumajaya.sch.id</p>
+                    </div>
+
+                    <div
+                        class="group p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-sky-500/50 transition-all duration-300 text-center md:scale-110 md:z-20 md:bg-slate-800/80 shadow-xl shadow-black/20">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 group-hover:bg-sky-500 group-hover:text-white text-sky-400 transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h4 class="text-white font-bold mb-1">Telepon</h4>
+                        <p class="text-slate-400 text-sm">(021) 1234-5678</p>
+                    </div>
+
+                    <div
+                        class="group p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-sky-500/50 transition-all duration-300 text-center">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 group-hover:bg-sky-500 group-hover:text-white text-sky-400 transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h4 class="text-white font-bold mb-1">Lokasi</h4>
+                        <p class="text-slate-400 text-sm">SMKN 1 Tarumajaya, Bekasi</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl group relative">
+                    <div
+                        class="absolute inset-0 bg-sky-500/5 pointer-events-none group-hover:bg-transparent transition-colors duration-500">
+                    </div>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.7925475696684!2d106.9851540745303!3d-6.158532860359409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a20c558a1c7df%3A0xc9b612f870551fca!2sSMKN%201%20Tarumajaya!5e0!3m2!1sid!2sid!4v1777212197492!5m2!1sid!2sid"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="grayscale active:grayscale-0 hover:grayscale-0 transition-all duration-700"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arsip Kegiatan -->
+        <section id="arsip" class="py-24 relative overflow-hidden" style="background: #f8fafc;">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-sky-100 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
+
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-sky-500">
+                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                        <circle cx="9" cy="9" r="2" />
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                    </svg>
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-slate-600">Dokumentasi
+                        Kegiatan</span>
+                </div>
+
+                <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Arsip Foto & Momen</h2>
+                <p class="text-slate-500 mt-4 mb-10 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Lihat kumpulan dokumentasi kegiatan, rapat, dan momen seru perjalanan OSIS SMKN 1 Tarumajaya dari
+                    masa ke masa.
+                </p>
+
+                <div class="relative inline-block group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-sky-400 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
+                    </div>
+
+                    <a href="arsip.html"
+                        class="relative flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-bold rounded-2xl transition-all duration-300 transform group-hover:scale-[1.02] active:scale-95 shadow-2xl">
+                        <span class="tracking-wide">Jelajahi Arsip Lengkap</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="transition-transform group-hover:translate-x-1">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="mt-12 flex justify-center items-center gap-8 text-slate-400">
+                    <div class="flex flex-col">
+                        <span class="text-slate-900 font-bold text-xl">500+</span>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold">Foto Kegiatan</span>
+                    </div>
+                    <div class="w-px h-8 bg-slate-200"></div>
+                    <div class="flex flex-col">
+                        <span class="text-slate-900 font-bold text-xl">12</span>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold">Album Besar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-4 text-center" style="background: #020617;">
+            <div class="mt-12 flex flex-col items-center gap-8">
+                <div class="flex gap-6">
+                    <a href="https://www.instagram.com/osis_smkn1tarumajaya/"
+                        class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white hover:-translate-y-2 transition-all duration-300 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#"
+                        class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-red-600 hover:text-white hover:-translate-y-2 transition-all duration-300 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17">
+                            </path>
+                            <path d="m10 15 5-3-5-3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#"
+                        class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white hover:-translate-y-2 transition-all duration-300 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-slate-500 text-xs font-medium">© 2026 OSIS SMKN 1 Tarumajaya. Created by Mahasiswa
+                    Universitas Nusa Mandiri.</p>
+            </div>
+        </footer>
     </div>
 
-<script src="formosis.js"></script>
+    <!-- Toast container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
+
+    <script>
+
+        // Star rating
+        document.querySelectorAll('#star-rating .star-btn').forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.star);
+                updateStars();
+            });
+        });
+
+        function updateStars() {
+            document.querySelectorAll('#star-rating .star-btn').forEach(s => {
+                const v = parseInt(s.dataset.star);
+                s.style.color = v <= selectedRating ? '#facc15' : '#cbd5e1';
+            });
+        }
+
+        // Toast
+        function showToast(msg, type) {
+            const t = document.createElement('div');
+            t.className = 'toast-enter px-5 py-3 rounded-xl text-sm font-medium shadow-lg';
+            t.style.background = type === 'success' ? '#059669' : '#dc2626';
+            t.style.color = 'white';
+            t.textContent = msg;
+            document.getElementById('toast-container').appendChild(t);
+            setTimeout(() => t.remove(), 3500);
+        }
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+
+        window.addEventListener('click', function (e) {
+            const menu = document.getElementById('mobile-menu');
+            const toggleBtn = document.getElementById('mobile-toggle');
+
+            if (menu && toggleBtn) {
+                if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            }
+        });
+
+        let isSubscribed = localStorage.getItem('subscribed') === 'true';
+
+        const svgIcons = {
+            bell: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400 group-hover:scale-110 transition-transform"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>`,
+            bellCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 group-hover:scale-110 transition-transform"><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M18.63 13A17.89 17.89 0 0 1 18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 1.71-.21 3.39-.63 5"></path><path d="m9 11 2 2 4-4"></path><path d="M3 17h18"></path></svg>`
+        };
+
+        function updateBellIcon() {
+            const bellButton = document.getElementById('notification-bell');
+            if (!bellButton) return; 
+
+            if (isSubscribed) {
+                bellButton.innerHTML = svgIcons.bellCheck;
+            } else {
+                bellButton.innerHTML = svgIcons.bell;
+            }
+        }
+
+        function toggleNotification() {
+            const bell = document.getElementById('notification-bell');
+            if (bell) {
+                bell.classList.add('bell-shake');
+                setTimeout(() => bell.classList.remove('bell-shake'), 500);
+            }
+
+            if (!isSubscribed) {
+                const email = prompt('Masukkan email untuk subscribe notifikasi:');
+                if (email) {
+                    isSubscribed = true;
+                    localStorage.setItem('subscribed', 'true');
+                    localStorage.setItem('user_email', email);
+
+                    updateBellIcon();
+                    showToast('Berhasil subscribe! ✅', 'success');
+                }
+            } else {
+                isSubscribed = false;
+                localStorage.removeItem('subscribed');
+                localStorage.removeItem('user_email');
+
+                updateBellIcon();
+                showToast('Berhasil unsubscribe. 👋', 'success');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBellIcon();
+        });
+
+        // Feedback form
+        document.getElementById('feedback-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = document.getElementById('fb-message').value;
+            const category = document.getElementById('fb-category').value;
+
+            // Profanity filter - strict
+            const badWords = ['bego', 'tolol', 'anjing', 'bangsat', 'goblok', 'bodoh', 'idiot', 'setan', 'sampah', 'jelek', 'sial', 'sialan', 'kontol', 'memek', 'bitch', 'fuck', 'damn', 'ass', 'ngentot'];
+            const hasProfanity = badWords.some(word => message.toLowerCase().includes(word));
+
+            if (hasProfanity) {
+                showToast('⚠️ Pesan mengandung kata tidak pantas. Harap perbaiki.', 'error');
+                return;
+            }
+
+            if (!category) {
+                showToast('Pilih kategori feedback terlebih dahulu.', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('fb-submit');
+            btn.disabled = true;
+            btn.textContent = 'Mengirim...';
+            btn.style.opacity = '0.6';
+            btn.disabled = false;
+            btn.textContent = 'Kirim Feedback';
+            btn.style.opacity = '1';
+        });
+
+        lucide.createIcons();
+    </script>
+
+    <script src="feedback.js"></script>
 </body>
 
 </html>
