@@ -1,3 +1,6 @@
+// YearNow
+document.getElementById("year").textContent = new Date().getFullYear();
+
 //Char counters 
 function initCharCounter(textareaId, counterId) {
     const el = document.getElementById(textareaId);
