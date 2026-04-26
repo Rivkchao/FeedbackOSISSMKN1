@@ -1,5 +1,7 @@
 // YearNow
-document.getElementById("year").textContent = new Date().getFullYear();
+const currentYear = new Date().getFullYear();
+document.getElementById('year-header').textContent = currentYear;
+document.getElementById('year-footer').textContent = currentYear;
 
 //Char counters 
 function initCharCounter(textareaId, counterId) {
