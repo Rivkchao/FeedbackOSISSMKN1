@@ -220,13 +220,15 @@
             <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center">
                 <div class="fade-up stagger-1">
                     <span
-                        class="inline-block px-4 py-1.5 rounded-full text-xs font-bold text-sky-300 border border-sky-500/30 mb-6 bg-sky-500/10 tracking-wider uppercase">
+                        class="inline-block px-4 py-1.5 rounded-full text-xs font-bold text-sky-300 border border-sky-500/30 mb-6 bg-sky-500/10 tracking-wider uppercase"
+                        style="text-shadow: 0 0 8px white;">
                         Periode 2026
                     </span>
                 </div>
 
                 <h1 id="hero-title"
-                    class="section-title text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight fade-up stagger-2 [-webkit-text-stroke:2px_black]">
+                    class="section-title text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight fade-up stagger-2"
+                    style="text-shadow: 0 0 8px #0ea5e9;">
                     OSIS SMKN 1 <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-400">Tarumajaya</span>
                 </h1>
@@ -251,18 +253,21 @@
                 <div
                     class="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-16 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm fade-up stagger-5">
                     <div class="text-center">
-                        <div class="text-2xl md:text-3xl font-black text-white [-webkit-text-stroke:1px_black]">8</div>
+                        <div class="text-2xl md:text-3xl font-black text-white" style="text-shadow: 0 0 8px #0ea5e9;">8
+                        </div>
                         <div class="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 font-bold mt-1">
                             Divisi</div>
                     </div>
                     <div class="text-center border-x border-white/10">
-                        <div class="text-2xl md:text-3xl font-black text-white [-webkit-text-stroke:1px_black]">50+
+                        <div class="text-2xl md:text-3xl font-black text-white" style="text-shadow: 0 0 8px #0ea5e9;">
+                            50+
                         </div>
                         <div class="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 font-bold mt-1">
                             Anggota</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl md:text-3xl font-black text-white [-webkit-text-stroke:1px_black]">20+
+                        <div class="text-2xl md:text-3xl font-black text-white" style="text-shadow: 0 0 8px #0ea5e9;">
+                            20+
                         </div>
                         <div class="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 font-bold mt-1">
                             Program</div>
@@ -742,7 +747,7 @@
                         <span class="text-[10px] font-bold tracking-widest uppercase text-sky-600">Suaramu
                             Penting</span>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Kotak Aspirasi</h2>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Kotak Suaramu</h2>
                     <p class="text-slate-500 mt-3 text-sm">Bantu OSIS berkembang lebih baik melalui saran dan kritikmu.
                     </p>
                 </div>
@@ -750,6 +755,7 @@
                 <form id="feedback-form"
                     class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
 
+                    <!-- Nama -->
                     <div class="space-y-1.5">
                         <label for="fb-name" class="block text-sm font-bold text-slate-700 ml-1">Nama <span
                                 class="text-slate-400 font-normal">(Opsional)</span></label>
@@ -758,7 +764,33 @@
                             placeholder="Boleh dikosongkan jika ingin anonim">
                     </div>
 
-                    <div class="bg-slate-50 p-4 rounded-2xl border border-dashed border-slate-200">
+                    <!-- Kategori (Sekarang di bawah Nama) -->
+                    <div class="space-y-1.5">
+                        <label for="fb-category" class="block text-sm font-bold text-slate-700 ml-1">Kategori</label>
+                        <div class="relative">
+                            <select id="fb-category" required
+                                class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all appearance-none cursor-pointer">
+                                <option value="" disabled selected>Pilih kategori...</option>
+                                <option value="saran">💡 Saran & Ide Baru</option>
+                                <option value="keluhan">⚠️ Keluhan</option>
+                                <option value="laporan">🚩 Laporan</option>
+                                <option value="pertanyaan">❓ Pertanyaan</option>
+                                <option value="apresiasi">🙌 Apresiasi</option>
+                                <option value="aspirasi">📢 Aspirasi Umum</option>
+                            </select>
+                            <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wrapper untuk Star Rating (Hanya tampil di Apresiasi) -->
+                    <div id="star-rating-wrapper"
+                        class="hidden bg-slate-50 p-4 rounded-2xl border border-dashed border-slate-200">
                         <label class="block text-sm font-bold text-slate-700 mb-3 text-center">Kepuasan Layanan
                             OSIS</label>
                         <div id="star-rating" class="flex justify-center gap-3">
@@ -778,37 +810,16 @@
                                 class="star-btn text-3xl text-slate-300 hover:scale-125 transition-transform duration-200 focus:outline-none"
                                 data-star="5">★</button>
                         </div>
+                        <input type="hidden" id="fb-rating" value="0">
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label for="fb-category" class="block text-sm font-bold text-slate-700 ml-1">Kategori
-                            Masukan</label>
-                        <div class="relative">
-                            <select id="fb-category" required
-                                class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all appearance-none cursor-pointer">
-                                <option value="" disabled selected>Pilih jenis feedback...</option>
-                                <option>💡 Saran & Ide Baru</option>
-                                <option>⚠️ Keluhan / Laporan</option>
-                                <option>❓ Pertanyaan</option>
-                                <option>🙌 Apresiasi</option>
-                                <option>📢 Aspirasi Umum</option>
-                                <option>••• Lainnya</option>
-                            </select>
-                            <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <label for="fb-message" class="block text-sm font-bold text-slate-700 ml-1">Isi Pesan</label>
+                    <!-- Isi Pesan -->
+                    <div id="message-wrapper" class="space-y-1.5">
+                        <label for="fb-message" id="label-message"
+                            class="block text-sm font-bold text-slate-700 ml-1">Isi Pesan</label>
                         <textarea id="fb-message" rows="4" required
                             class="w-full px-5 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-900 text-sm outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all resize-none"
-                            placeholder="Sampaikan apa yang ada di pikiranmu secara sopan..."></textarea>
+                            placeholder="Sampaikan isi pikiranmu..."></textarea>
                     </div>
 
                     <button type="submit" id="fb-submit"
@@ -995,137 +1006,195 @@
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
 
     <script>
+        // ===== CONFIGURATION =====
+        const FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSe06jl9twCZyR7ynZDaH7nPBNKpmTxNyRBn7rTRImtVX16Kqg/formResponse';
 
-        // Star rating
-        document.querySelectorAll('#star-rating .star-btn').forEach(star => {
-            star.addEventListener('click', () => {
-                selectedRating = parseInt(star.dataset.star);
-                updateStars();
-            });
-        });
+        const BAD_WORDS_LIST = [
+            'anjing', 'anjink', 'anjrit', 'asuh', 'babi', 'monyet', 'kunyuk', 'bangsat', 'bangsyat', 'bajingan',
+            'kontol', 'memek', 'meki', 'peler', 'peju', 'perek', 'lonte', 'jablay', 'ngentot', 'entot', 'ngewe',
+            'tetek', 'toket', 'selangkangan', 'itil', 'jembut', 'becewek', 'vagina', 'penis', 'bokep', 'porno',
+            'goblok', 'tolol', 'bego', 'bodoh', 'idiot', 'geblek', 'sinting', 'gila', 'sarap', 'setan', 'iblis',
+            'lante', 'sampah', 'jelek', 'norak', 'kampungan', 'dajjal', 'asu', 'jancok', 'cok', 'ancur',
+            'anying', 'anjim', 'ajg', 'bgsd', 'kntl', 'mmk', 'ngt', 'perek', 'pk', 'bencong', 'maho', 'homo',
+            'fuck', 'fucking', 'bitch', 'asshole', 'damn', 'shit', 'pussy', 'dick', 'bastard', 'crap', 'slut',
+            'whore', 'idiot', 'stupid', 'gay', 'lesbian', 'motherfucker', 'stfu'
+        ];
 
-        function updateStars() {
-            document.querySelectorAll('#star-rating .star-btn').forEach(s => {
-                const v = parseInt(s.dataset.star);
-                s.style.color = v <= selectedRating ? '#facc15' : '#cbd5e1';
-            });
-        }
+        // ===== STATE =====
+        let selectedRating = 0;
+        let isSubmitting = false;
 
-        // Toast
+        // ===== ELEMENTS =====
+        const form = document.getElementById('feedback-form');
+        const stars = document.querySelectorAll('.star-btn');
+        const statusEl = document.getElementById('fb-message-status');
+        const submitBtn = document.getElementById('fb-submit');
+        const categorySelect = document.getElementById('fb-category');
+        const starWrapper = document.getElementById('star-rating-wrapper');
+        const labelMessage = document.getElementById('label-message');
+        const inputMessage = document.getElementById('fb-message');
+
+        // ===== TOAST & UTILS =====
         function showToast(msg, type) {
             const t = document.createElement('div');
-            t.className = 'toast-enter px-5 py-3 rounded-xl text-sm font-medium shadow-lg';
+            t.className = 'toast-enter px-5 py-3 rounded-xl text-sm font-medium shadow-lg fixed bottom-5 right-5 z-[9999]';
             t.style.background = type === 'success' ? '#059669' : '#dc2626';
             t.style.color = 'white';
             t.textContent = msg;
-            document.getElementById('toast-container').appendChild(t);
+            document.body.appendChild(t);
             setTimeout(() => t.remove(), 3500);
         }
 
-        // Mobile menu
+        function showStatus(message, type) {
+            statusEl.textContent = message;
+            statusEl.classList.remove('hidden');
+            statusEl.className = 'text-center text-sm font-bold p-3 rounded-2xl transition-all';
+            if (type === 'success') statusEl.classList.add('bg-green-100', 'text-green-600');
+            else if (type === 'error') statusEl.classList.add('bg-red-100', 'text-red-600');
+            else statusEl.classList.add('bg-slate-100', 'text-slate-600');
+        }
+
+        // ===== LOGIC DINAMIS KATEGORI =====
+        categorySelect.addEventListener('change', () => {
+            const val = categorySelect.value;
+            starWrapper.classList.add('hidden');
+            labelMessage.textContent = "Isi Pesan";
+
+            if (val === 'apresiasi') {
+                starWrapper.classList.remove('hidden');
+                labelMessage.textContent = "Pesan Apresiasi";
+            } else if (val === 'pertanyaan') labelMessage.textContent = "Pertanyaan Kamu";
+            else if (val === 'keluhan') labelMessage.textContent = "Detail Keluhan";
+            else if (val === 'laporan') labelMessage.textContent = "Detail Laporan";
+            else if (val === 'saran') labelMessage.textContent = "Saran & Ide";
+            else if (val === 'aspirasi') labelMessage.textContent = "Aspirasi Umum";
+        });
+
+        // ===== STAR RATING =====
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.star);
+                stars.forEach(s => {
+                    const v = parseInt(s.dataset.star);
+                    if (v <= selectedRating) {
+                        s.classList.remove('text-slate-300');
+                        s.classList.add('text-yellow-400', 'scale-110');
+                    } else {
+                        s.classList.remove('text-yellow-400', 'scale-110');
+                        s.classList.add('text-slate-300');
+                    }
+                });
+            });
+        });
+
+        // ===== REAL-TIME VALIDATION =====
+        inputMessage.addEventListener('input', () => {
+            const message = inputMessage.value;
+            const cleanMessage = message.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+            const hasProfanity = BAD_WORDS_LIST.some(word =>
+                message.toLowerCase().includes(word) || cleanMessage.includes(word)
+            );
+
+            if (hasProfanity && message.length > 0) {
+                inputMessage.classList.add('ring-2', 'ring-red-500', 'border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+                inputMessage.classList.remove('focus:ring-sky-500/10', 'focus:border-sky-500');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                showStatus('⚠️ Mohon gunakan kata-kata yang lebih sopan.', 'error');
+            } else {
+                inputMessage.classList.remove('ring-2', 'ring-red-500', 'border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+                inputMessage.classList.add('focus:border-sky-500');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                if (statusEl.textContent.includes('sopan')) statusEl.classList.add('hidden');
+            }
+        });
+
+        // ===== VALIDATION FUNCTION =====
+        function validateForm(category, message) {
+            const cleanMessage = message.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+            const hasProfanity = BAD_WORDS_LIST.some(word =>
+                message.toLowerCase().includes(word) || cleanMessage.includes(word)
+            );
+
+            if (hasProfanity) {
+                showStatus('⚠️ Pesan mengandung kata tidak pantas.', 'error');
+                return false;
+            }
+            if (!category) {
+                showStatus('📂 Pilih kategori feedback.', 'error');
+                return false;
+            }
+            if (category === 'apresiasi' && selectedRating === 0) {
+                showStatus('⭐ Pilih rating bintang untuk apresiasi!', 'error');
+                return false;
+            }
+            if (!message.trim()) {
+                showStatus('✍️ Isi pesan kamu dulu ya.', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        // ===== SUBMIT HANDLER =====
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            if (isSubmitting) return;
+
+            const name = document.getElementById('fb-name').value.trim();
+            const categoryValue = categorySelect.value;
+            const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
+            const message = inputMessage.value.trim();
+
+            // Validasi
+            if (!validateForm(categoryValue, message)) return;
+
+            isSubmitting = true;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Mengirim...';
+            showStatus('Sedang mengirim aspirasi...', 'loading');
+
+            const formData = new FormData();
+            formData.append('entry.824721340', name || '🎭 Anonim');
+            formData.append('entry.191177856', categoryValue === 'apresiasi' ? selectedRating : '-');
+            formData.append('entry.1763406822', categoryText); // Kirim teks dengan emoji ke Google Form
+            formData.append('entry.892136975', message);
+
+            try {
+                await fetch(FORM_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+
+                showStatus('🎉 Aspirasi terkirim! Terima kasih ya!', 'success');
+                showToast('Aspirasi berhasil terkirim! 🚀', 'success');
+
+                // Reset Form
+                form.reset();
+                selectedRating = 0;
+                starWrapper.classList.add('hidden');
+                stars.forEach(s => {
+                    s.classList.replace('text-yellow-400', 'text-slate-300');
+                    s.classList.remove('scale-110');
+                });
+
+            } catch (err) {
+                showStatus('❌ Gagal kirim. Cek koneksi internetmu.', 'error');
+                showToast('Gagal mengirim aspirasi.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Kirim Aspirasi Saya';
+                isSubmitting = false;
+            }
+        });
+
+        // Mobile menu utils (Tetap dipertahankan)
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             if (menu) menu.classList.toggle('hidden');
         }
-
-        function closeMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            if (menu) menu.classList.add('hidden');
-        }
-
-        window.addEventListener('click', function (e) {
-            const menu = document.getElementById('mobile-menu');
-            const toggleBtn = document.getElementById('mobile-toggle');
-
-            if (menu && toggleBtn) {
-                if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
-                    menu.classList.add('hidden');
-                }
-            }
-        });
-
-        let isSubscribed = localStorage.getItem('subscribed') === 'true';
-
-        const svgIcons = {
-            bell: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400 group-hover:scale-110 transition-transform"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>`,
-            bellCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 group-hover:scale-110 transition-transform"><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M18.63 13A17.89 17.89 0 0 1 18 8c0-3.31-2.69-6-6-6S6 4.69 6 8c0 1.71-.21 3.39-.63 5"></path><path d="m9 11 2 2 4-4"></path><path d="M3 17h18"></path></svg>`
-        };
-
-        function updateBellIcon() {
-            const bellButton = document.getElementById('notification-bell');
-            if (!bellButton) return; 
-
-            if (isSubscribed) {
-                bellButton.innerHTML = svgIcons.bellCheck;
-            } else {
-                bellButton.innerHTML = svgIcons.bell;
-            }
-        }
-
-        function toggleNotification() {
-            const bell = document.getElementById('notification-bell');
-            if (bell) {
-                bell.classList.add('bell-shake');
-                setTimeout(() => bell.classList.remove('bell-shake'), 500);
-            }
-
-            if (!isSubscribed) {
-                const email = prompt('Masukkan email untuk subscribe notifikasi:');
-                if (email) {
-                    isSubscribed = true;
-                    localStorage.setItem('subscribed', 'true');
-                    localStorage.setItem('user_email', email);
-
-                    updateBellIcon();
-                    showToast('Berhasil subscribe! ✅', 'success');
-                }
-            } else {
-                isSubscribed = false;
-                localStorage.removeItem('subscribed');
-                localStorage.removeItem('user_email');
-
-                updateBellIcon();
-                showToast('Berhasil unsubscribe. 👋', 'success');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateBellIcon();
-        });
-
-        // Feedback form
-        document.getElementById('feedback-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const message = document.getElementById('fb-message').value;
-            const category = document.getElementById('fb-category').value;
-
-            // Profanity filter - strict
-            const badWords = ['bego', 'tolol', 'anjing', 'bangsat', 'goblok', 'bodoh', 'idiot', 'setan', 'sampah', 'jelek', 'sial', 'sialan', 'kontol', 'memek', 'bitch', 'fuck', 'damn', 'ass', 'ngentot'];
-            const hasProfanity = badWords.some(word => message.toLowerCase().includes(word));
-
-            if (hasProfanity) {
-                showToast('⚠️ Pesan mengandung kata tidak pantas. Harap perbaiki.', 'error');
-                return;
-            }
-
-            if (!category) {
-                showToast('Pilih kategori feedback terlebih dahulu.', 'error');
-                return;
-            }
-
-            const btn = document.getElementById('fb-submit');
-            btn.disabled = true;
-            btn.textContent = 'Mengirim...';
-            btn.style.opacity = '0.6';
-            btn.disabled = false;
-            btn.textContent = 'Kirim Feedback';
-            btn.style.opacity = '1';
-        });
-
-        lucide.createIcons();
     </script>
-
-    <script src="feedback.js"></script>
 </body>
 
 </html>
