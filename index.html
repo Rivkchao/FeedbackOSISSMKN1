@@ -1136,7 +1136,7 @@
             return true;
         }
 
-        // ===== SUBMIT HANDLER =====
+        // ===== SUBMIT KE GOOGLE FORM =====
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
             if (isSubmitting) return;
@@ -1146,18 +1146,28 @@
             const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
             const message = inputMessage.value.trim();
 
-            // Validasi
             if (!validateForm(categoryValue, message)) return;
 
             isSubmitting = true;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '⏳ Mengirim...';
+
             showStatus('Sedang mengirim aspirasi...', 'loading');
 
             const formData = new FormData();
+
+            // 1. Nama Lengkap (Masuk ke kolom 'Nama Lengkap')
             formData.append('entry.824721340', name || '🎭 Anonim');
-            formData.append('entry.191177856', categoryValue === 'apresiasi' ? selectedRating : '-');
-            formData.append('entry.1763406822', categoryText); // Kirim teks dengan emoji ke Google Form
+
+            // 2. Rating (Masuk ke kolom 'Rating')
+            // Kita balik: entry ini sekarang menerima nilai rating bintang jika kategori-nya apresiasi
+            formData.append('entry.1763406822', categoryValue === 'apresiasi' ? (selectedRating + " Bintang") : '-');
+
+            // 3. Kategori (Masuk ke kolom 'Kategori')
+            // Kita balik: entry ini sekarang menerima teks Kategori (contoh: 💡 Saran & Ide Baru)
+            formData.append('entry.191177856', categoryText);
+
+            // 4. Saran (Masuk ke kolom 'Saran')
             formData.append('entry.892136975', message);
 
             try {
@@ -1168,7 +1178,7 @@
                 });
 
                 showStatus('🎉 Aspirasi terkirim! Terima kasih ya!', 'success');
-                showToast('Aspirasi berhasil terkirim! 🚀', 'success');
+                showToast('Berhasil terkirim! ✅', 'success');
 
                 // Reset Form
                 form.reset();
@@ -1181,7 +1191,6 @@
 
             } catch (err) {
                 showStatus('❌ Gagal kirim. Cek koneksi internetmu.', 'error');
-                showToast('Gagal mengirim aspirasi.', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = 'Kirim Aspirasi Saya';
@@ -1189,7 +1198,7 @@
             }
         });
 
-        // Mobile menu utils (Tetap dipertahankan)
+        // ==== MOBILE MENU UTILS ====
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             if (menu) menu.classList.toggle('hidden');
