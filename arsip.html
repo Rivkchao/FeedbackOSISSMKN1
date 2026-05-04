@@ -37,8 +37,7 @@
                 class="absolute -bottom-8 -right-6 w-24 h-24 bg-cyan-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
             </div>
 
-            <div
-                class="relative bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white/20">
+            <div id="arsip-form-container" class="relative bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white/20">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="p-2 bg-sky-500 rounded-lg shadow-lg shadow-sky-200">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -93,6 +92,25 @@
     <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2"></div>
 
     <script>
+        let currentUser = null;
+
+        function getSavedUser() {
+            try {
+                return JSON.parse(localStorage.getItem('osisUser'));
+            } catch {
+                return null;
+            }
+        }
+
+        currentUser = getSavedUser();
+
+        const form = document.getElementById('arsip-form-container');
+
+        if (!currentUser) {
+            form.style.display = 'none';
+
+        }
+
         const arsipData = [
             { year: 2022, title: 'LDKS Pengurus', img: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400' },
             { year: 2023, title: 'Pentas Seni', img: 'https://images.unsplash.com/photo-1583787035686-91b82ad5d811?auto=format&fit=crop&w=400' },
@@ -147,7 +165,11 @@
 
         // Form Submit
         document.getElementById('arsip-form').addEventListener('submit', (e) => {
-            e.preventDefault();
+            if (!currentUser) {
+                e.preventDefault();
+                alert('Harus login dulu!');
+                return;
+            }
 
             const title = document.getElementById('arsip-title').value;
             const img = document.getElementById('arsip-img').value;
