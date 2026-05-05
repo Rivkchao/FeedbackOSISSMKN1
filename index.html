@@ -830,7 +830,7 @@
 
                     <button type="submit" id="fb-submit"
                         class="w-full bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-sky-200 transition-all transform hover:-translate-y-1 active:scale-95">
-                        Kirim Aspirasi Saya
+                        Kirim Suara Saya
                     </button>
 
                     <div id="fb-message-status"
@@ -882,7 +882,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Bento Grid Layout -->
                 <div class="grid grid-cols-12 gap-6">
 
@@ -1787,18 +1787,16 @@
 
             const formData = new FormData();
 
-            // 1. Nama Lengkap (Masuk ke kolom 'Nama Lengkap')
+            // 1. Nama Lengkap
             formData.append('entry.824721340', name || '🎭 Anonim');
 
-            // 2. Rating (Masuk ke kolom 'Rating')
-            // entry ini menerima nilai rating bintang jika kategori-nya apresiasi
+            // 2. Rating
             formData.append('entry.1763406822', categoryValue === 'apresiasi' ? (selectedRating + " Bintang") : '-');
 
-            // 3. Kategori (Masuk ke kolom 'Kategori')
-            // entry ini menerima teks Kategori (contoh: 💡 Saran & Ide Baru)
+            // 3. Kategori
             formData.append('entry.191177856', categoryText);
 
-            // 4. Saran (Masuk ke kolom 'Saran')
+            // 4. Saran
             formData.append('entry.892136975', message);
 
             try {
@@ -1824,7 +1822,7 @@
                 showStatus('❌ Gagal kirim. Cek koneksi internetmu.', 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Kirim Aspirasi Saya';
+                submitBtn.innerHTML = 'Kirim Suara Saya';
                 isSubmitting = false;
             }
         });
